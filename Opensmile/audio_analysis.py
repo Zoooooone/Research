@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import os
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier, GradientBoostingClassifier
@@ -8,10 +9,22 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn import svm
 
-path = '/Users/zone/Desktop/学习/大学院/研究/data_opensmile_pre_exam/result_of_opensmile/'
+f = open("PATH.txt")
+paths = []
+for p in f:
+    p = p.rstrip("\n")
+    paths.append(p)
+
+ospath = os.getcwd()
+if "zihen" in ospath:
+    pre_path = paths[1]
+elif "zone" in ospath:
+    pre_path = paths[0]
+
+path = pre_path + 'result_of_opensmile/'
 days = ["%s_" % i for i in range(1, 8)]
 dialogue_nums = ["%s.csv" % i for i in [j for j in range(1, 12)] + [k for k in range(13, 17)] + [19] + [30, 31, 32]]
-comparision_table = pd.read_excel("/Users/zone/Desktop/学习/大学院/研究/data_opensmile_pre_exam/高齢者実験_被験者対応表_for_chen.xlsx")
+comparision_table = pd.read_excel(pre_path + "高齢者実験_被験者対応表_for_chen.xlsx")
 name_to_experiment_num = {}
 
 for num in comparision_table["被験者番号"]:
@@ -42,7 +55,7 @@ def get_audio_feature(experiment_nums):
 
 
 def get_questionnaire_result(experiment_nums):
-    questionnaire_excel = pd.read_excel('/Users/zone/Desktop/学习/大学院/研究/data_opensmile_pre_exam/november_elderly_qol_answer_all.xlsx')
+    questionnaire_excel = pd.read_excel(pre_path + 'november_elderly_qol_answer_all.xlsx')
     questionnaire_results = questionnaire_excel[[
         '氏名',
         '過去1日間に、家族、友人、近所の人、その他の仲間とのふだんのつきあいが、身体的あるいは心理的な理由で、どのくらい妨げられましたか。',

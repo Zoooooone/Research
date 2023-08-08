@@ -1,13 +1,27 @@
 import numpy as np
 import pandas as pd
+import os
 import sys
 
-paths = ["/Users/zone/Desktop/Research_z-Chen/Opensmile/", "C:/Users/zihen/Desktop/Research_z-Chen/Opensmile"]
-sys.path.append(paths[0])
+f = open("PATH.txt")
+paths = []
+for p in f:
+    p = p.rstrip("\n")
+    paths.append(p)
+
+ospath = os.getcwd()
+if "zihen" in ospath:
+    pre_path_1 = paths[3]
+    pre_path_2 = paths[1]
+elif "zone" in ospath:
+    pre_path_1 = paths[2]
+    pre_path_2 = paths[0]
+
+sys.path.append(pre_path_1)
 
 from audio_analysis import fit_ques_to_audio
 
-path = '/Users/zone/Desktop/学习/大学院/研究/data_opensmile_pre_exam/result_of_opensmile_ver2/'
+path = pre_path_2 + 'result_of_opensmile_ver2/'
 experiment_nums = list(range(1, 8)) + list(range(9, 22))
 days = ["%s_" % i for i in range(1, 8)]
 dialogue_nums = ["%s.csv" % i for i in [j for j in range(1, 12)] + [k for k in range(13, 17)] + [19] + [30, 31, 32]]
