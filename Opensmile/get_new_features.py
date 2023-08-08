@@ -6,7 +6,7 @@ smile = opensmile.Smile(
     feature_level=opensmile.FeatureLevel.Functionals,
 )
 
-g = os.walk("test_data/sound/")
+g = os.walk("/Users/zone/Desktop/学习/大学院/研究/data_opensmile_pre_exam/sound/")
 
 for p, d, f in g:
     path, dir_list, file_list = p, d, f
